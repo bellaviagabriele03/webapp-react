@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, Link} from "react-router-dom";
 import Details from "../Pages/Details";
 
 export default function Card({ movieArray }) {
@@ -19,7 +19,7 @@ export default function Card({ movieArray }) {
                                     <h5 className="card-title">{movie.title}</h5>
                                     <p className="card-text">{movie.abstract}</p>
                                 </div>
-                                <NavLink to="/details">MORE INFO</NavLink>
+                                <Link to={`/movies/${movie.id}`}>MORE INFO</Link>
                             </div>
                         </div>
                     </>
