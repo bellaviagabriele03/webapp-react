@@ -3,6 +3,7 @@ import MoviesLayout from "./Layouts/MoviesLayout";
 import Home from "./Pages/Home";
 import Movies from "./Pages/Movies";
 import About from "./Pages/About";
+import Details from "./Pages/Details";
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
             <Route element={<Home />} path="/" />
             <Route element={<Movies />} path="/movies" />
             <Route element={<About />} path="/about" />
+            <Route element={<Details/>} path="/details" />
           </Route>
         </Routes>
 
