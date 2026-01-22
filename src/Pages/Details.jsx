@@ -7,6 +7,9 @@ export default function Details() {
     const { id } = useParams();
     const [show, setShow] = useState([]);
     const [reviews, setReviews] = useState([])
+
+
+
     useEffect(() => {
         axios.get(`http://localhost:3000/api/movies/${id}`).then((resp) => {
             console.log(resp.data.result);
@@ -16,10 +19,51 @@ export default function Details() {
             setReviews(resp.data.reviews)
         })
 
-    }, [])
+    }, [id])
+
+
+
+
 
 
     const urlImg = "http://localhost:3000/img/";
+
+    const initialForm = {
+        name: "",
+        vote: 1,
+        text: ""
+    }
+
+    const [formData, setFormData] = useState(initialForm);
+
+
+    function updateForm(event) {
+        const value = event.target.value;
+        const key = event.target.name;
+        setFormData({
+            ...formData,
+            [key]: value
+        });
+
+    }
+
+
+    function postCallto(event) {
+        event.preventDefault();
+
+        axios.post(`http://localhost:3000/api/movies/${id}/reviews`, formData).then((resp) => {
+            console.log(resp);
+            setFormData(initialForm)
+            axios.get(`http://localhost:3000/api/movies/${id}`).then((resp) => {
+                console.log(resp.data.result);
+                console.log(resp.data.reviews);
+
+                setShow(resp.data.result)
+                setReviews(resp.data.reviews)
+            })
+        })
+    }
+
 
     return (
         <>
@@ -58,8 +102,27 @@ export default function Details() {
                             )
                         })}
                     </div>
-                    <div className="col-6">
+                    <div className="col-6 bg-secondary text-black p-3">
+                        <div>
+                            <form onSubmit={postCallto}>
 
+                                <div className="mb-3">
+                                    <label className="form-label" htmlFor="name"><strong>NOME</strong></label>
+                                    <input className="form-control" type="text" id="name" placeholder="(es: Mario)" name="name" onChange={updateForm} />
+                                </div>
+
+                                <div className="mb-3">
+                                    <label className="form-label" htmlFor="vote"><strong>VOTO</strong></label>
+                                    <input className="form-control" type="number" id="vote" placeholder="5" name="vote" onChange={updateForm} />
+                                </div>
+
+                                <div className="mb-3">
+                                    <label className="form-label" htmlFor="text"><strong>TEXT</strong></label>
+                                    <textarea className="form-control" name="text" id="text" placeholder="bellissiiimooo" onChange={updateForm}></textarea>
+                                </div>
+                                <button className="btn btn-success">INVIA</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </section>
