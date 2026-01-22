@@ -40,7 +40,30 @@ export default function Details() {
             </div>
             <h1 className="text-center bg-black py-4"></h1>
 
-            
+            <section className="container mt-4">
+                <h2>Recensioni:</h2>
+                <div className="row">
+                    <div className="col-6">
+                        {reviews.map((review) => {
+                            return (
+                                <>
+                                    <div className="card mb-3">
+                                        <div className="card-header bg-secondary"><h3>{review.name}</h3></div>
+                                        <div className="card-body">
+                                            <p className="card-text">{review.text}</p>
+                                            <span>Voto: {review.vote}</span>
+                                        </div>
+                                    </div>
+                                </>
+                            )
+                        })}
+                    </div>
+                    <div className="col-6">
+
+                    </div>
+                </div>
+            </section>
+
         </>
     )
 
